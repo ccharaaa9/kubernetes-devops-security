@@ -26,7 +26,7 @@ pipeline {
       stage('SonarQube - SAST') {
             steps {
               withSonarQubeEnv('SonarQube') {
-                sh "mvn clean verify sonar:sonar -Dsonar.projectKey=numeric-application -Dsonar.host.url=http://devsecops-demo-c5s.eastus.cloudapp.azure.com:9000 -Dsonar.login=sqp_434861c5fd2a8f588475d5154ee543c7f65bbe00"
+                sh "mvn clean verify sonar:sonar -Dsonar.projectKey=numeric-application -Dsonar.host.url=http://devsecops-demo-c5s.eastus.cloudapp.azure.com:9000"
               }
               timeout(time: 2, unit: 'MINUTES') {
                 Script {
@@ -35,8 +35,7 @@ pipeline {
               }
             }
               
-            }
-
+        }
       stage('Kubernetes Deployment - DEV') {
             steps {
               withKubeConfig([credentialsId: 'kubecon']) {
